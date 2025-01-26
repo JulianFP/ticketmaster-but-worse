@@ -8,7 +8,7 @@ A project for the binary hacking practical
 
 ### Start flask dev server:
 
-`python -m venv .venv`
+`python3 -m venv .venv`
 
 `source .venv/bin/activate`
 
@@ -20,6 +20,15 @@ A project for the binary hacking practical
 
 
 ### Compile and run client:
+
+**Qt5 development tools**:
+    install qtbase5-dev qt5-qmake qtbase5-dev-tools
+    install libpng-dev
+
+**CMake and build-essential**:
+    install cmake build-essential
+
+
 
 `cmake -B build`
 

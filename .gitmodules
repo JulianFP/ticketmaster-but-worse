@@ -4,9 +4,9 @@
 [submodule "client/submodules/cpp-httplib"]
 	path = client/submodules/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib
-[submodule "client/client/submodules/gcrypt"]
-	path = client/client/submodules/gcrypt
-	url = git://git.gnupg.org/libgcrypt.git
+[submodule "client/submodules/qrencode"]
+	path = client/submodules/qrencode
+	url = https://github.com/fukuchi/libqrencode.git
 [submodule "client/submodules/libcotp"]
 	path = client/submodules/libcotp
 	url = https://github.com/paolostivanin/libcotp

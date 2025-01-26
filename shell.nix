@@ -12,7 +12,11 @@ pkgs.mkShell {
     (python3.withPackages myPythonPackages)
 
     #dependencies for client
+    cmake
     openssl
+    qt5.full
+    libpng
+    qrencode
   ];
 
   nativeBuildInputs = with pkgs; [

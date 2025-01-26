@@ -12,8 +12,22 @@ set(CMAKE_BUILD_DIR "build")
 # The following is required for language servers (like clangd)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(CMAKE_AUTOMOC ON)
+
+# Set the Qt version and required components
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
+
+# Find and link qrencode library
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(QREncode REQUIRED libqrencode)
+
 # Add executable
-add_executable(ticketmaster-but-worse src/main.cpp)
+add_executable(ticketmaster-but-worse src/main.cpp src/QRCodeWindow.cpp)
+
+
+# Link Qt libraries to the ticketmaster-but-worse app
+target_link_libraries(ticketmaster-but-worse Qt5::Widgets)
+
 
 #add local hpp libs
 add_library(server-connection src/server-connection.cpp)
@@ -37,3 +51,6 @@ set(HMAC_WRAPPER "openssl" CACHE STRING "tell libcotp to use openssl")
 add_subdirectory(submodules/libcotp)
 target_link_libraries(ticket cotp)
 
+# Link qrencode to the executable
+add_subdirectory(submodules/qrencode)
+target_link_libraries(ticketmaster-but-worse qrencode)
