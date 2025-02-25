@@ -30,6 +30,7 @@ dependencies = [
     # JWT Flask plugin for session tokens
     "flask-jwt-extended",
     "pyotp",
+    "gunicorn",
 ]
 
 # The following section contains setuptools-specific configuration

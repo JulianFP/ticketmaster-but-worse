@@ -1,5 +1,7 @@
 #include "server-connection.hpp"
 #include "ticket.hpp"
+#include <cstdint>
+#include <httplib.h>
 
 bool ServerConnection::is_new_error(std::string &old_error_msg, const std::string &error_msg) const {
     if (old_error_msg == error_msg) {
@@ -32,7 +34,7 @@ json ServerConnection::post(const std::string &route, const httplib::Params &for
         }
         else {
             error = true;
-            if (is_new_error(error_msg, "Communication with server failed")){
+            if (is_new_error(error_msg, httplib::to_string(res.error()))){
                 i = 0;
             }
         }
@@ -64,7 +66,7 @@ json ServerConnection::get(const std::string &route, const httplib::Params &quer
         }
         else {
             error = true;
-            if (is_new_error(error_msg, "Communication with server failed")){
+            if (is_new_error(error_msg, httplib::to_string(res.error()))){
                 i = 0;
             }
         }
@@ -99,10 +101,12 @@ json ServerConnection::get_logged_in(const std::string &route, const httplib::Pa
     }
 }
 
-ServerConnection::ServerConnection(std::string server_url)
-    : cli(httplib::Client(server_url))
+ServerConnection::ServerConnection(std::string server_address, uint16_t server_port, std::string server_ca_bundle_path)
+    : cli(httplib::SSLClient(server_address, server_port))
     , access_token("")
-    {}
+    {
+        cli.set_ca_cert_path(server_ca_bundle_path);
+    }
 
 void ServerConnection::login() {
     httplib::Params params{

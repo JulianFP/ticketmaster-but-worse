@@ -4,6 +4,7 @@ let
     flask
     flask-jwt-extended
     pyotp
+    gunicorn
   ];
 in 
 pkgs.mkShell {

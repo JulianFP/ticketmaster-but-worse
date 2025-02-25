@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <httplib.h>
 #include <nlohmann/json.hpp>
@@ -16,7 +17,7 @@ class ServerConnection {
 private:
     const int retry_counter = 3;
 
-    httplib::Client cli;
+    httplib::SSLClient cli;
     std::string access_token;
 
     bool is_new_error(std::string &old_error_msg, const std::string &error_msg) const;
@@ -30,7 +31,7 @@ private:
     json get_logged_in(const std::string &route, const httplib::Params &query_params = {});
 
 public:
-    ServerConnection(std::string server_url);
+    ServerConnection(std::string server_address, uint16_t server_port, std::string server_ca_bundle_path = "");
 
     void login();
 

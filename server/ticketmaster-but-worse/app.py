@@ -34,9 +34,14 @@ def generate_ticket(username):
 generate_ticket("defaultUser")
 
 @jwt.user_lookup_loader
-def user_lookup_loader(_jwt_header, jwt_data):
+def user_lookup_loader(_, jwt_data):
     username = jwt_data["sub"]
     return users[username]
+
+#test route used by bash script to check if server is online
+@app.get("/ping")
+def ping():
+    return "pong"
 
 @app.post("/login")
 def login():
